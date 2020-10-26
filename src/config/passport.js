@@ -32,10 +32,12 @@ passport.use(
   )
 );
 
+//Mantiene la sesion del usuario
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+//Termina la sesion del usuario
 passport.deserializeUser((id, done) => {
   Users.findById(id, (err, user) => {
     done(err, user);
