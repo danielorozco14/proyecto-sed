@@ -1,0 +1,38 @@
+<div class="row ">
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                Registrese
+            </div>
+            <div class="card-body">
+                <form action="/user/register" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" name="nombre" id="nombre">
+
+                        <label for="apellido">Apellido</label>
+                        <input type="text" name="apellido" id="apellido">
+
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email">
+
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+
+                        <label for="conf_password">Confirmar Password</label>
+                        <input type="password" name="conf_password" id="conf_password">
+                        
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Registrarse
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
