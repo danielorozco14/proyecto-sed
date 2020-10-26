@@ -8,8 +8,14 @@ const vueloSchema = new Schema(
       type: Number,
       min: 1,
       max: 10,
+
+    usuario:{
+      type: String,
+      required: true
+    }
     },
-  },
+  }
+  ,
   {
     timestamps: true,
   }

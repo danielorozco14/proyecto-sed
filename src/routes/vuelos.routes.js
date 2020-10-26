@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const Flight = require("../models/Flights");
+const {isAuthenticated} = require('../helpers/validarSesion')
 
 //Ver todos los vuelos
-router.get("/vuelos", async (req, res) => {
+router.get("/vuelos", isAuthenticated,async (req, res) => {
   const vuelos = await Flight.find().lean();
   res.render("vuelos/todos-vuelo", { vuelos });
 
@@ -10,12 +11,12 @@ router.get("/vuelos", async (req, res) => {
 });
 
 //Formulario para agregar vuelos
-router.get("/vuelos/agregar", (req, res) => {
+router.get("/vuelos/agregar",isAuthenticated, (req, res) => {
   res.render("vuelos/nuevo-vuelo");
 });
 
 //Maneja el ingreso de las vuelos
-router.post("/vuelos/agregar", async (req, res) => {
+router.post("/vuelos/agregar", isAuthenticated,async (req, res) => {
   const { origen, destino, cantBoleto } = req.body;
   const nuevoVuelo = new Flight({
     origen,
@@ -29,14 +30,14 @@ router.post("/vuelos/agregar", async (req, res) => {
 });
 
 //Mostrar formulario para editar los vuelos
-router.get("/vuelos/editar/:id", async (req, res) => {
+router.get("/vuelos/editar/:id", isAuthenticated,async (req, res) => {
   const vuelo = await Flight.findById(req.params.id).lean();
   //console.log(vuelo);
   res.render("vuelos/editar-vuelo", { vuelo });
 });
 
 //Actualiza la informacion del vuelo
-router.put("/vuelos/editar/:id", async (req, res) => {
+router.put("/vuelos/editar/:id",isAuthenticated, async (req, res) => {
   const { origen, destino, cantBoleto } = req.body;
 
   await Flight.findByIdAndUpdate(req.params.id, {
@@ -49,7 +50,7 @@ router.put("/vuelos/editar/:id", async (req, res) => {
 });
 
 //Eliminar vuelos
-router.delete("/vuelos/eliminar/:id", async (req, res) => {
+router.delete("/vuelos/eliminar/:id",isAuthenticated, async (req, res) => {
   const vueloId = req.params.id;
   await Flight.findByIdAndDelete(vueloId);
   req.flash("success_msg", "Vuelo eliminado correctamente");
