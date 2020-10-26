@@ -7,13 +7,12 @@ const vueloSchema = new Schema(
     cantBoleto: {
       type: Number,
       min: 1,
-      max: 10,
-
+      max: 10,    
+    },
     usuario:{
       type: String,
       required: true
     }
-    },
   }
   ,
   {

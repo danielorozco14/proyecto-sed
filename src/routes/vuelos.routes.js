@@ -1,22 +1,22 @@
 const router = require("express").Router();
 const Flight = require("../models/Flights");
-const {isAuthenticated} = require('../helpers/validarSesion')
+const { isAuthenticated } = require("../helpers/validarSesion");
 
 //Ver todos los vuelos
-router.get("/vuelos", isAuthenticated,async (req, res) => {
-  const vuelos = await Flight.find().lean();
+router.get("/vuelos", isAuthenticated, async (req, res) => {
+  const vuelos = await Flight.find({ usuario: req.user.id }).lean();
   res.render("vuelos/todos-vuelo", { vuelos });
 
   //res.send("Ver todos los vuelos");
 });
 
 //Formulario para agregar vuelos
-router.get("/vuelos/agregar",isAuthenticated, (req, res) => {
+router.get("/vuelos/agregar", isAuthenticated, (req, res) => {
   res.render("vuelos/nuevo-vuelo");
 });
 
 //Maneja el ingreso de las vuelos
-router.post("/vuelos/agregar", isAuthenticated,async (req, res) => {
+router.post("/vuelos/agregar", isAuthenticated, async (req, res) => {
   const { origen, destino, cantBoleto } = req.body;
   const nuevoVuelo = new Flight({
     origen,
@@ -24,20 +24,27 @@ router.post("/vuelos/agregar", isAuthenticated,async (req, res) => {
     cantBoleto,
   });
   //console.log(nuevoVuelo);
+
+  nuevoVuelo.usuario = req.user.id; //Agregando el usuario que creo el vuelo, al modelo del vuelo
   await nuevoVuelo.save();
+
   req.flash("success_msg", "Vuelo agregado correctamente");
   res.redirect("/vuelos");
 });
 
 //Mostrar formulario para editar los vuelos
-router.get("/vuelos/editar/:id", isAuthenticated,async (req, res) => {
+router.get("/vuelos/editar/:id", isAuthenticated, async (req, res) => {
   const vuelo = await Flight.findById(req.params.id).lean();
-  //console.log(vuelo);
+  
+  //Validacion si el usuario X quiere editar un vuelo del usuario Y ingresando la ruta manualmente
+  if (vuelo.usuario != req.user.id) {
+    return res.redirect("/vuelos");
+  }
   res.render("vuelos/editar-vuelo", { vuelo });
 });
 
 //Actualiza la informacion del vuelo
-router.put("/vuelos/editar/:id",isAuthenticated, async (req, res) => {
+router.put("/vuelos/editar/:id", isAuthenticated, async (req, res) => {
   const { origen, destino, cantBoleto } = req.body;
 
   await Flight.findByIdAndUpdate(req.params.id, {
@@ -50,7 +57,7 @@ router.put("/vuelos/editar/:id",isAuthenticated, async (req, res) => {
 });
 
 //Eliminar vuelos
-router.delete("/vuelos/eliminar/:id",isAuthenticated, async (req, res) => {
+router.delete("/vuelos/eliminar/:id", isAuthenticated, async (req, res) => {
   const vueloId = req.params.id;
   await Flight.findByIdAndDelete(vueloId);
   req.flash("success_msg", "Vuelo eliminado correctamente");
