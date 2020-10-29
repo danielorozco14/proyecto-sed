@@ -1,0 +1,33 @@
+<!--h3>
+    {{usuario.nombre}}
+    {{usuario.apellido}}
+</h3-->
+<div class="table">
+    <table style="width: 80%;">
+        <thead>
+            <th>Accion</th>
+            <th> Origen </th>
+            <th> Destino </th>
+            <th> Cantidad Boletos </th>
+        </thead>
+
+
+        {{#each vuelos}}
+        <tr>
+            <td>
+                <a href="/admin/editar/vuelo/{{_id}}">
+                    <button class="btn btn-success">Editar</button>
+                </a>
+                <form action="/admin/editar/vuelo/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE"> 
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+
+            </td>
+            <td>{{origen}} </td>
+            <td>{{destino}}</td>
+            <td>{{cantBoleto}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

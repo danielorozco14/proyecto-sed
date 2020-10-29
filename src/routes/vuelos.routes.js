@@ -5,6 +5,7 @@ const { isAuthenticated } = require("../helpers/validarSesion");
 //Ver todos los vuelos
 router.get("/vuelos", isAuthenticated, async (req, res) => {
   const vuelos = await Flight.find({ usuario: req.user.id }).lean();
+  
   res.render("vuelos/todos-vuelo", { vuelos });
 
   //res.send("Ver todos los vuelos");
@@ -35,7 +36,7 @@ router.post("/vuelos/agregar", isAuthenticated, async (req, res) => {
 //Mostrar formulario para editar los vuelos
 router.get("/vuelos/editar/:id", isAuthenticated, async (req, res) => {
   const vuelo = await Flight.findById(req.params.id).lean();
-  
+
   //Validacion si el usuario X quiere editar un vuelo del usuario Y ingresando la ruta manualmente
   if (vuelo.usuario != req.user.id) {
     return res.redirect("/vuelos");

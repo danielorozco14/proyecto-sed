@@ -1,15 +1,18 @@
 const helper = {};
 
-helper.isAuthenticated = (req, res,next) => {
+helper.isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
 
-    if(req.isAuthenticated()){
-        return next();
-    }
-
-    res.redirect('/user/login')
-
-
+  res.redirect("/user/login");
 };
 
+helper.isAdmin = (req, res, next) => {
+  if (req.isAuthenticated() && req.user.admin == true) {
+    return next();
+  }
+  res.redirect("/user/login");
+};
 
-module.exports=helper;
+module.exports = helper;

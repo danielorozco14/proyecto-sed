@@ -22,4 +22,5 @@ router.post("/user/register", Register);
 
 //Maneja el logout
 router.get("/user/logout", logOut);
+
 module.exports = router;

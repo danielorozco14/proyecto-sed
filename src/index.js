@@ -67,7 +67,8 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
-  res.locals.user=req.user || null; //Variable para saber si hay un usuario en el sistema, para habilitar botones
+  res.locals.admin = req.flash("admin");
+  res.locals.user = req.user || null; //Variable para saber si hay un usuario en el sistema, para habilitar botones
 
   next();
 });
@@ -78,6 +79,7 @@ app.use((req, res, next) => {
 app.use(require("./routes/index.routes"));
 app.use(require("./routes/vuelos.routes"));
 app.use(require("./routes/users.routes"));
+app.use(require("./routes/admin.routes"));
 
 /*
     Archivos Estaticos

@@ -17,13 +17,18 @@ passport.use(
       });
 
       if (!user) {
+        ///si el usuario no existe
         return done(null, false, { message: "Usuario no encontrado" });
       } else {
         //Validando la contrasenia
 
         const pass = await user.matchPasswd(password);
         if (pass) {
-          return done(null, user);
+          if (user.admin == true) {
+            
+            return done(null, user);
+          }
+          return done(null, user); //Si las contrsenias coinciden, passport guarda el usuario y reconoce la sesion
         } else {
           return done(null, false, { message: "Contraseña incorrecta" });
         }

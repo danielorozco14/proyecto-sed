@@ -1,0 +1,46 @@
+<div class="table">
+    <table style="width: 80%;">
+        <thead>
+            <th>Accion</th>
+            <th> Nombre </th>
+            <th> Apellido </th>
+            <th> Correo Electronico </th>
+            <th>Admin</th>
+        </thead>
+
+
+        {{#each usuarios}}
+        <tr>
+            <td>
+
+                {{#if admin}}
+                <span></span>
+
+                {{else}}
+                <a href="/admin/editar/usuario/{{_id}}">
+                    <button class="btn btn-success">Editar</button>
+                </a>
+                <a href="/admin/ver/vuelos/{{_id}}">
+                    <button class="btn btn-success">Ver Vuelos</button>
+                </a>
+                <form action="/admin/eliminar/usuario/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+                {{/if}}
+
+
+            </td>
+            <td>{{nombre}} </td>
+            <td>{{apellido}}</td>
+            <td>{{email}}</td>
+            {{#if admin}}
+            <td>Si</td>
+            {{else }}
+            <td>No</td>
+            {{/if}}
+
+        </tr>
+        {{/each}}
+    </table>
+</div>

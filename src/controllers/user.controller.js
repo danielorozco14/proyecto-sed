@@ -9,11 +9,15 @@ userController.renderLoginForm = (req, res) => {
 };
 
 //Da inicio de sesion al usuario
-userController.Login = passport.authenticate("local", {
-  failureRedirect: "/user/login",
-  successRedirect: "/vuelos",
-  failureFlash: true,
-});
+userController.Login = passport.authenticate(
+  "local",
+  {
+    failureRedirect: "/user/login",
+    successRedirect: "/vuelos",
+    successReturnToOrRedirect: "/",
+    failureFlash: true,
+  }
+);
 
 //Muestra el form de registro
 userController.renderRegisterForm = (req, res) => {
@@ -80,7 +84,7 @@ userController.Register = async (req, res) => {
 userController.logOut = (req, res) => {
   req.logout();
   req.flash("success_msg", "Sesion terminada");
-  res.redirect('/');
+  res.redirect("/");
 };
 
 module.exports = userController;
