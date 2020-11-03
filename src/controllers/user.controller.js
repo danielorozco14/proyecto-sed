@@ -5,21 +5,10 @@ const passport = require("passport");
 
 //Muestra el form de login
 userController.renderLoginForm = (req, res) => {
-  req.flash("success_msg","Ingrese sus datos")
   res.render("authentication/login");
 };
 
 //Da inicio de sesion al usuario
-/*userController.Login = passport.authenticate(
-  "local",
-  {
-    failureRedirect: "/user/login",
-    successRedirect: "/vuelos",
-    successReturnToOrRedirect: "/",
-    failureFlash: true,
-  }
-);*/
-
 userController.Login = passport.authenticate("local", {
   failureRedirect: "/user/login",
   successRedirect: "/",
