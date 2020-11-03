@@ -24,10 +24,6 @@ passport.use(
 
         const pass = await user.matchPasswd(password);
         if (pass) {
-          if (user.admin == true) {
-            
-            return done(null, user);
-          }
           return done(null, user); //Si las contrsenias coinciden, passport guarda el usuario y reconoce la sesion
         } else {
           return done(null, false, { message: "Contraseña incorrecta" });

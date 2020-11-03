@@ -67,8 +67,10 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
-  res.locals.admin = req.flash("admin");
   res.locals.user = req.user || null; //Variable para saber si hay un usuario en el sistema, para habilitar botones
+  if(req.user){ //SI HAY UN USUARIO, SE VERIFICA SI EL USUARIO ES ADMIN
+    res.locals.admin = req.user.admin;
+  }
 
   next();
 });

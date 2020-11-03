@@ -7,13 +7,13 @@ const {
   Register,
   logOut,
 } = require("../controllers/user.controller");
+const passport = require("passport");
 
 //Mostrar formulario de inicio de sesion
 router.get("/user/login", renderLoginForm);
 
 //Maneja el inicio de sesion
 router.post("/user/login", Login);
-
 //Mostrar formulario de registro
 router.get("/user/register", renderRegisterForm);
 
