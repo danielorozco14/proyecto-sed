@@ -6,24 +6,34 @@
             </h3>
         </div>
         <div class="card-body">
-            <form action="/vuelos/agregar" method="POST">
+            <form action="/vuelos/boleto" method="POST">
                 <div class="form-group">
                     <label for="org">Origen</label>
-                    <input type="text" id="org" name="origen" autofocus>
-                    
-                    <label for="dest">Destino</label>
-                    <input type="text" id="dest"name="destino" ><br>
+                    <input type="text" id="org" list="orgn" name="origen" />
+                    <datalist id="orgn">
+                        <option>Soyapango</option>
+                        <option>Ontario</option>
+                        <option>Washington</option>
+                        <option>Berlin</option>
+                    </datalist>
 
+                    <label for="desti">Destino</label>
+                    <input type="text" id="desti" list="dest" name="destino" />
+                    <datalist id="dest">
+                        <option>Soyapango</option>
+                        <option>Ontario</option>
+                        <option>Washington</option>
+                        <option>Berlin</option>
+                    </datalist>
                     <label for="cantidad">Cantidad de boletos</label>
-                    <input type="number" id="cantidad" name="cantBoleto" min="1" max="10">
-
+                    <input type="number" id="cantidad" name="cantBoleto" min="1" max="10"><br>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block">Guardar</button>
+                    <button class="btn btn-primary btn-block">Buscar Boleto</button>
                 </div>
             </form>
 
         </div>
-        <div class="card-body"></div>
+
     </div>
 </div>

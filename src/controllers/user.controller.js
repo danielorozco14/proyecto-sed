@@ -5,7 +5,14 @@ const passport = require("passport");
 
 //Muestra el form de login
 userController.renderLoginForm = (req, res) => {
-  res.render("authentication/login");
+  //Si ya existe una sesion, se redirecciona a la pagina principal 
+  //y no se muestra el form para login
+  if (req.isAuthenticated()) {
+    res.redirect("/");
+  }else{
+    res.render("authentication/login");
+  }
+  
 };
 
 //Da inicio de sesion al usuario
@@ -45,6 +52,7 @@ userController.Register = async (req, res) => {
   if (password.length < 8) {
     errores.push({ msg: "Las contraseñas deben ser mayores a 8 caracteres" });
   }
+
   if (errores.length > 0) {
     res.render("authentication/register", {
       errores,
@@ -61,14 +69,16 @@ userController.Register = async (req, res) => {
       req.flash("error_msg", "El correo ya ha sido utilizado");
       res.redirect("/user/register");
     } else {
-      //GUARDANDO ELL USUARIO
+      //GUARDANDO EL USUARIO
       const newUsuario = new Usuario({
         nombre,
         apellido,
         email,
         password,
       });
-      newUsuario.password = await newUsuario.encriptarPasswd(password); //Encriptando la contrasenia
+
+      //Encriptando la contrasenia
+      newUsuario.password = await newUsuario.encriptarPasswd(password); 
 
       await newUsuario.save();
       req.flash("success_msg", "Usuario registrado!");

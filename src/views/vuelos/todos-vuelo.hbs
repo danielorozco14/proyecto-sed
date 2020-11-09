@@ -5,6 +5,7 @@
             <th> Origen </th>
             <th> Destino </th>
             <th> Cantidad Boletos </th>
+            <th> Total </th>
         </thead>
 
 
@@ -15,7 +16,7 @@
                     <button class="btn btn-success">Editar</button>
                 </a>
                 <form action="/vuelos/eliminar/{{_id}}?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE"> 
+                    <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>
 
@@ -23,6 +24,7 @@
             <td>{{origen}} </td>
             <td>{{destino}}</td>
             <td>{{cantBoleto}}</td>
+            <td>${{precio}}<span style="padding-left: 3%;">USD</span></td>
         </tr>
         {{/each}}
     </table>

@@ -13,7 +13,7 @@ helper.isAdmin = (req, res, next) => {
     return next();
   }
   req.flash("error_msg", "No eres administrador");
-  res.redirect("/user/login");
+  res.redirect("/");
 };
 
 module.exports = helper;

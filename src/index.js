@@ -34,7 +34,7 @@ app.engine(
 );
 
 app.set("view engine", ".hbs"); //Configurando el motor de vistas
-
+app.use(express.static(path.join(__dirname, "public"))); //Configurando carpeta para archivos estaticos
 /*
     Middlewares
 */
@@ -68,7 +68,8 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
   res.locals.user = req.user || null; //Variable para saber si hay un usuario en el sistema, para habilitar botones
-  if(req.user){ //SI HAY UN USUARIO, SE VERIFICA SI EL USUARIO ES ADMIN
+  if (req.user) {
+    //SI HAY UN USUARIO, SE VERIFICA SI EL USUARIO ES ADMIN
     res.locals.admin = req.user.admin;
   }
 
@@ -82,6 +83,7 @@ app.use(require("./routes/index.routes"));
 app.use(require("./routes/vuelos.routes"));
 app.use(require("./routes/users.routes"));
 app.use(require("./routes/admin.routes"));
+app.use(require("./routes/pagos.routes"));
 
 /*
     Archivos Estaticos

@@ -16,23 +16,6 @@ router.get("/vuelos/agregar", isAuthenticated, (req, res) => {
   res.render("vuelos/nuevo-vuelo");
 });
 
-//Maneja el ingreso de las vuelos
-router.post("/vuelos/agregar", isAuthenticated, async (req, res) => {
-  const { origen, destino, cantBoleto } = req.body;
-  const nuevoVuelo = new Flight({
-    origen,
-    destino,
-    cantBoleto,
-  });
-  //console.log(nuevoVuelo);
-
-  nuevoVuelo.usuario = req.user.id; //Agregando el usuario que creo el vuelo, al modelo del vuelo
-  await nuevoVuelo.save();
-
-  req.flash("success_msg", "Vuelo agregado correctamente");
-  res.redirect("/vuelos");
-});
-
 //Mostrar formulario para editar los vuelos
 router.get("/vuelos/editar/:id", isAuthenticated, async (req, res) => {
   const vuelo = await Flight.findById(req.params.id).lean();
