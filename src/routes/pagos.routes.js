@@ -32,7 +32,7 @@ router.post("/vuelos/boleto", isAuthenticated, async (req, res) => {
 
     nuevoVuelo.precio = mPrecio;
     const vuelo = nuevoVuelo.toObject();
-    console.log(vuelo);
+    
     res.render("vuelos/check-vuelo", { vuelo });
   }
 });
@@ -86,7 +86,7 @@ router.post("/vuelos/procesar-pago", isAuthenticated, async (req, res) => {
     nuevoVuelo.usuario = req.user.id;
     nuevoVuelo.tarjeta = await nuevoVuelo.encriptarTarjeta(numTarjeta);
 
-    console.log(nuevoVuelo);
+    
 
     try {
       await nuevoVuelo.save();
