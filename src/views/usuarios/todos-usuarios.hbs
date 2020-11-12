@@ -17,16 +17,11 @@
                 <span></span>
 
                 {{else}}
-                <a href="/admin/editar/usuario/{{_id}}">
-                    <button class="btn btn-success">Editar</button>
-                </a>
+               
                 <a href="/admin/ver/vuelos/{{_id}}">
                     <button class="btn btn-success">Ver Vuelos</button>
                 </a>
-                <form action="/admin/eliminar/usuario/{{_id}}?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                </form>
+                
                 {{/if}}
 
 

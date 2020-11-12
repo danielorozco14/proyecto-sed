@@ -14,4 +14,11 @@ adminController.verVuelosUsuarios = async (req, res) => {
   res.render("usuarios/vuelos-usuario", { vuelos });
 };
 
+adminController.eliminarVueloUsuario = async (req, res) => {
+  const vueloId = req.params.id;
+  await Vuelos.findByIdAndDelete(vueloId);
+  req.flash("success_msg", "Vuelo eliminado corectamente");
+  res.redirect("/admin/users");
+};
+
 module.exports = adminController;
