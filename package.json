@@ -1,7 +1,7 @@
 {
   "name": "proyecto-sed",
   "version": "1.0.0",
-  "description": "",
+  "description": "Aplicacion para compra de boletos en el aeropuerto de Soyapango",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
