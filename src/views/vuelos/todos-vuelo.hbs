@@ -13,11 +13,11 @@
         <tr>
             <td>
                 <a href="/vuelos/editar/{{_id}}">
-                    <button class="btn btn-success">Editar</button>
+                    <button class="btn btn-block btn-success " style="margin-bottom:1em;">Editar</button>
                 </a>
                 <form action="/vuelos/eliminar/{{_id}}?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-block btn-danger" style="margin-bottom:1em;">Eliminar</button>
                 </form>
 
             </td>
