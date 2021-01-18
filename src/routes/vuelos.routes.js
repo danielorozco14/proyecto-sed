@@ -4,8 +4,17 @@ const { isAuthenticated } = require("../helpers/validarSesion");
 
 //Ver todos los vuelos
 router.get("/vuelos", isAuthenticated, async (req, res) => {
-  const vuelos = await Flight.find({ usuario: req.user.id }).lean();
-  
+  const vuelosFromDB = await Flight.find({ usuario: req.user.id }); //.lean(); //Lean convierte el objeto Mongoose a plain JS Object
+  const vuelos = vuelosFromDB.map((vuelo) => {
+    return {
+      _id: vuelo._id,
+      origen: vuelo.origen,
+      destino: vuelo.destino,
+      cantBoleto: vuelo.cantBoleto,
+      precio: vuelo.precio,
+    };
+  });
+
   res.render("vuelos/todos-vuelo", { vuelos });
 
   //res.send("Ver todos los vuelos");
